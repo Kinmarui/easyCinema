@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: 'jdbc:h2:~/moviedb'
+    username: app
+    password: developmentpassword
+  cloud:
+    openfeign:
+      client:
+        config:
+          omdbMovieClient:
+            url: '${OMDB_URL:https://www.omdbapi.com}'
+            defaultQueryParameters:
+              apikey: '${OMDB_APIKEY}'
