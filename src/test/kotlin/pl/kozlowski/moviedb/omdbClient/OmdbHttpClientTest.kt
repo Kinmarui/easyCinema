@@ -10,15 +10,15 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class OmdbClientTest {
+class OmdbHttpClientTest {
 
     @Autowired
-    lateinit var omdbMovieClient: OmdbMovieClient
+    lateinit var omdbMovieHttpClient: OmdbMovieHttpClient
 
     @Test
     @EnabledIfEnvironmentVariable(named = "INTEGRATION_TEST", matches = "true")
     fun getMovies() {
-        val expected = OmdbMovie(
+        val expected = OmdbMovieDto(
             title="The Matrix",
             year="1999",
             rated="R",
@@ -36,7 +36,8 @@ class OmdbClientTest {
             ratings= listOf(
                 Rating(source="Internet Movie Database", value="8.7/10"),
                 Rating(source="Rotten Tomatoes", value="88%"),
-                Rating(source="Metacritic", value="73/100")),
+                Rating(source="Metacritic", value="73/100")
+            ),
             metascore="73",
             imdbRating="8.7",
             imdbVotes="1,963,966",
@@ -45,9 +46,9 @@ class OmdbClientTest {
             dvd="15 May 2007",
             boxOffice="$172,076,928",
             production="N/A",
-            website="N/A",
-            response="True")
-        val movie: OmdbMovie = omdbMovieClient.getMovie( "tt0133093")
+            website="N/A"
+        )
+        val movie: OmdbMovieDto = omdbMovieHttpClient.getMovie( "tt0133093") as? OmdbMovieDto ?: throw IllegalArgumentException("Movie not found!")
         assertEquals(expected, movie)
     }
 }

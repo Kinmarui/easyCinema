@@ -1,21 +1,15 @@
 package pl.kozlowski.moviedb.omdbClient
 
-import org.springframework.cloud.openfeign.FeignClient
-import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.stereotype.Component
+import pl.kozlowski.moviedb.movieCatalogue.MovieClient
 
-@FeignClient(
-    name = "omdbMovieClient",
-    url = "https://www.omdbapi.com",
-)
-interface OmdbMovieClient {
-    @GetMapping(
-        value = ["/"],
-        consumes = [APPLICATION_JSON_VALUE],
-    )
-    fun getMovie(
-        @RequestParam(name = "i", required=false) imdbID: String? = null,
-        @RequestParam(name = "t", required=false) title: String? = null,
-    ): OmdbMovie
+@Component
+class OmdbMovieClient(
+    private val omdbMovieHttpClient: OmdbMovieHttpClient
+) : MovieClient {
+    override fun getMovie(
+        imdbID: String?,
+        title: String?,
+    ) = omdbMovieHttpClient.getMovie(imdbID, title)
+        .toDomainMovie()
 }

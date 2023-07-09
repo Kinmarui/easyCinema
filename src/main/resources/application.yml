@@ -1,8 +1,14 @@
 spring:
   datasource:
-    url: 'jdbc:h2:~/moviedb'
-    username: app
-    password: developmentpassword
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:movie}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:1}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
   cloud:
     openfeign:
       client:

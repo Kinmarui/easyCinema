@@ -1,6 +1,11 @@
-package pl.kozlowski.moviedb.movieCatalogue
+package pl.kozlowski.moviedb.movieCatalogue.adapters
 
-data class Movie(
+import io.hypersistence.utils.hibernate.type.json.JsonType
+import jakarta.persistence.*
+import org.hibernate.annotations.Type
+
+@Entity
+class MovieEntity(
     val title: String,
     val releaseYear: String,
     val rated: String,
@@ -15,7 +20,9 @@ data class Movie(
     val country: String,
     val awards: String,
     val poster: String,
-    val ratings: List<Rating>,
+    @Type(JsonType::class)
+    @Column(columnDefinition = "json")
+    val ratings: List<RatingEntity>,
     val metascore: String,
     val imdbRating: String,
     val imdbVotes: String,
@@ -25,10 +32,12 @@ data class Movie(
     val boxOffice: String,
     val production: String,
     val website: String,
-    val id: Long = 0L
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
 )
 
-data class Rating(
+data class RatingEntity(
     val source: String,
     val value: String,
 )

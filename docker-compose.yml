@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  movie-db:
+    container_name: movie-db
+    environment:
+      MAX_CONNECTIONS: 1000
+      POSTGRES_DB: movie
+      POSTGRES_PASSWORD: '1'
+      POSTGRES_USER: postgres
+    image: postgres:12
+    ports:
+      - published: 5432
+        target: 5432
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
