@@ -22,5 +22,7 @@ As next step I would like to add integration tests for database implementation.
 ```
 # this will start postgresql database at 5432 port
 docker compose up -d 
+
+pass OMDB_APIKEY to running aplication (run in IDE), or edit it in application.yml (last line)
 ```
 

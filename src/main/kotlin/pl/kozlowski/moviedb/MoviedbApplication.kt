@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
 @EnableFeignClients("pl.kozlowski.moviedb.omdbClient")
-@EnableJpaRepositories("pl.kozlowski.moviedb.movieCatalogue")
+@EnableJpaRepositories("pl.kozlowski.moviedb.movieCatalogue.adapters", "pl.kozlowski.moviedb.shows.adapters")
 class MoviedbApplication
 
 fun main(args: Array<String>) {
