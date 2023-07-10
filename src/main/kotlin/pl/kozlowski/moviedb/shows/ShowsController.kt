@@ -1,5 +1,6 @@
 package pl.kozlowski.moviedb.shows
 
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -11,6 +12,7 @@ class ShowsController(
     private val showsService: ShowsService
 ) {
     @PutMapping("/shows")
+    @PreAuthorize("hasRole('OWNER')")
     fun addShow(show: Show) {
         showsService.addShow(show)
     }

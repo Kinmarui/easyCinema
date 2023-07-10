@@ -7,6 +7,7 @@ Service is split into 3 domain areas
 3. Ratings - moviegoers ratings
 
 and one adapter which could be moved to separate project
+
 4. OmdbClient - client for omdbapi.com
 
 Each domain area has its own domain model and repository interface.
@@ -25,4 +26,6 @@ docker compose up -d
 
 pass OMDB_APIKEY to running aplication (run in IDE), or edit it in application.yml (last line)
 ```
+
+For protected endpoints please authenticate as user `owner` with password  `password`
 
