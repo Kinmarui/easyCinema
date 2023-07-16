@@ -1,10 +1,9 @@
 package pl.kozlowski.moviedb.shows
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 
 @RestController
@@ -13,7 +12,8 @@ class ShowsController(
 ) {
     @PutMapping("/shows")
     @PreAuthorize("hasRole('OWNER')")
-    fun addShow(show: Show) {
+    @Operation(security = [SecurityRequirement(name = "basicAuth")])
+    fun addShow(@RequestBody show: Show) {
         showsService.addShow(show)
     }
 

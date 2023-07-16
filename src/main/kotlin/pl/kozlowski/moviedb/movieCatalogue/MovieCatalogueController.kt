@@ -10,8 +10,8 @@ class MovieCatalogueController(
 ) {
     @GetMapping("/movies")
     fun getMovie(
-        @RequestParam(name = "i", required = false) imdbID: String?,
-        @RequestParam(name = "t", required = false) title: String?,
+        @RequestParam(name = "imdbID", required = false) imdbID: String?,
+        @RequestParam(name = "title", required = false) title: String?,
     ): List<Movie> {
         return movieCatalogueService.getMovie(imdbID, title)
     }
